@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#203b32">
+  <meta name="description" content="Um lugar para cada nome. Faça seu cadastro na Rol, nossa casa de registros.">
+  <title>Rol — Casa de registros</title>
+  <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="pular-conteudo" href="#conteudo">Pular para o cadastro</a>
+  <header class="cabecalho">
+    <a class="marca" href="./index.html" aria-label="Rol, início">rol<span aria-hidden="true">.</span></a>
+    <p class="assinatura">CASA DE REGISTROS<br><span>Um lugar para cada nome.</span></p>
+    <button class="botao-registros" id="abrir-registros" type="button" aria-haspopup="dialog" aria-controls="painel-registros">
+      Ver registros <span class="contador" id="contador-registros">0</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+    </button>
+  </header>
+
+  <main id="conteudo" class="composicao">
+    <section class="entrada" aria-labelledby="titulo">
+      <p class="sobretitulo"><span class="ponto" aria-hidden="true"></span> FICHA DE ENTRADA / Nº 001</p>
+      <h1 id="titulo">Gente nova,<br><em>boas histórias.</em></h1>
+      <p class="introducao">Pra começar, só o essencial.<br>O próximo nome desta casa pode ser o seu.</p>
+
+      <!-- novalidate permite mensagens próprias, próximas de cada campo. -->
+      <form id="cadastro-form" novalidate>
+        <div class="campo" data-campo="nome">
+          <label for="nome"><span class="numero" aria-hidden="true">01</span> Como você se chama?</label>
+          <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome completo" required aria-describedby="erro-nome">
+          <span class="erro-campo" id="erro-nome" aria-live="polite"></span>
+        </div>
+        <div class="campo" data-campo="email">
+          <label for="email"><span class="numero" aria-hidden="true">02</span> Seu e-mail</label>
+          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" placeholder="nome@dominio.com" required aria-describedby="erro-email">
+          <span class="erro-campo" id="erro-email" aria-live="polite"></span>
+        </div>
+        <div class="campo" data-campo="senha">
+          <label for="senha"><span class="numero" aria-hidden="true">03</span> Escolha uma senha</label>
+          <div class="entrada-senha">
+            <input id="senha" name="senha" type="password" autocomplete="new-password" minlength="8" placeholder="Pelo menos 8 caracteres" required aria-describedby="erro-senha dica-senha texto-forca">
+            <button id="alternar-senha" class="alternar-senha" type="button" aria-label="Mostrar senha" aria-controls="senha" aria-pressed="false">
+              <svg class="olho-aberto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="olho-fechado" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m3 3 18 18M10.6 5.1 12 5c6.5 0 10 7 10 7a20 20 0 0 1-3.2 4.1M6.1 6.1A22 22 0 0 0 2 12s3.5 7 10 7a12 12 0 0 0 5.1-1.1M10 10a2.8 2.8 0 0 0 4 4"/></svg>
+              <span id="texto-senha">Mostrar</span>
+            </button>
+          </div>
+          <span class="erro-campo" id="erro-senha" aria-live="polite"></span>
+          <div class="forca-senha" id="forca-senha" data-forca="vazia">
+            <div class="forca-barras" aria-hidden="true"><span class="forca-segmento"></span><span class="forca-segmento"></span><span class="forca-segmento"></span></div>
+            <span id="texto-forca" aria-live="polite">Força da senha</span>
+          </div>
+          <p class="dica" id="dica-senha">Com 8 caracteres, já vale. Misturar tipos deixa mais forte.</p>
+        </div>
+        <p class="erro-geral" id="erro-geral" role="alert"></p>
+        <button id="botao-cadastrar" class="botao-principal" type="submit">
+          <span id="texto-botao">Criar meu registro</span>
+          <span class="seta-botao" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 18 18 6M6 6h12v12"/></svg></span>
+        </button>
+        <p class="nota-local"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="4" y="8" width="12" height="9" rx="1"/><path d="M6.5 8V5a3.5 3.5 0 0 1 7 0v3M10 11v3"/></svg>Seus registros ficam só neste navegador.</p>
+      </form>
+
+      <section id="sucesso" class="sucesso" aria-labelledby="mensagem-sucesso" hidden>
+        <div class="sucesso-selo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m6 12 4 4 8-8"/></svg></div>
+        <div><h2 id="mensagem-sucesso" role="status" aria-live="polite"></h2>
+          <button class="botao-texto" id="novo-cadastro" type="button">Fazer outro cadastro <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></button>
+        </div>
+      </section>
+      <noscript><p class="erro-geral">Ative o JavaScript no navegador para fazer seu cadastro.</p></noscript>
+    </section>
+
+    <aside class="mesa" aria-label="Prévia do seu registro e resumo da casa">
+      <div class="mesa-cabecalho"><p class="sobretitulo">SEU LUGAR NA CASA</p><span class="ao-vivo"><span class="ponto" aria-hidden="true"></span>Ao vivo</span></div>
+      <div class="area-cracha">
+        <article class="cracha" id="cracha" aria-label="Prévia do crachá">
+          <div class="cracha-topo"><span class="marca">rol<span>.</span></span><span class="cracha-edicao">CASA DE REGISTROS<br>IDENTIDADE PESSOAL</span></div>
+          <div class="cracha-corpo">
+            <div class="retrato" aria-hidden="true"><span id="preview-iniciais">SE</span><svg class="retrato-asterisco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M1 12h22M4 4l16 16M4 20 20 4"/></svg></div>
+            <p class="cracha-rotulo">ESTE REGISTRO PERTENCE A</p>
+            <h2 id="preview-nome">Seu nome aqui</h2>
+            <p id="preview-email" class="cracha-email">seu@email.com</p>
+            <div class="carimbo" id="carimbo-cracha" hidden aria-hidden="true">TÁ NA CASA<br><small>REGISTRO FEITO</small></div>
+          </div>
+          <div class="cracha-rodape"><div><span class="cracha-rotulo">Nº DE REGISTRO</span><span id="preview-numero" class="cracha-numero">0001</span></div><div class="codigo-barras" aria-hidden="true"></div></div>
+        </article>
+      </div>
+      <div class="legenda-previa"><svg class="legenda-traco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M4 3v10a4 4 0 0 0 4 4h12m-5-5 5 5-5 5"/></svg><p>Um pouquinho de você,<br>antes mesmo de chegar.</p><span class="etiqueta" id="preview-status">Aguardando seu registro</span></div>
+
+      <section class="resumo" aria-labelledby="titulo-resumo">
+        <h2 id="titulo-resumo" class="sobretitulo">O MOVIMENTO DA CASA</h2>
+        <div class="resumo-grade">
+          <div class="resumo-total"><span class="resumo-rotulo">Pessoas por aqui</span><strong id="total-cadastros">0</strong></div>
+          <div class="resumo-ultimo"><span class="resumo-rotulo">Último registro</span><strong id="ultimo-cadastro">O seu pode ser o primeiro.</strong><span id="data-ultimo-cadastro">A casa está de portas abertas.</span></div>
+        </div>
+      </section>
+      <p class="mesa-rodape">NOMES DIFERENTES. UM MESMO LUGAR. <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 1v22M1 12h22M4 4l16 16M4 20 20 4"/></svg></p>
+    </aside>
+  </main>
+  <footer class="rodape"><span>Rol © <span id="ano">2026</span></span><span>Feito de gente, registro por registro.</span><span class="rodape-numero">001 — EM ABERTO</span></footer>
+
+  <!-- O dialog nativo cuida do foco, do teclado e do fechamento com Escape. -->
+  <dialog class="painel-registros" id="painel-registros" aria-labelledby="titulo-registros">
+    <div class="painel-cabecalho"><span class="sobretitulo">O CADERNO DA CASA</span><button class="botao-fechar" id="fechar-registros" type="button" aria-label="Fechar registros"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+    <h2 id="titulo-registros">Quem já<br><em>chegou por aqui.</em></h2>
+    <p class="painel-introducao">Cada linha, uma pessoa. Cada pessoa, uma história.</p>
+    <p id="lista-vazia" class="lista-vazia">O caderno ainda está em branco.<br>Que tal deixar o primeiro nome?</p>
+    <ol id="lista-usuarios" class="lista-usuarios" aria-label="Pessoas cadastradas"></ol>
+    <p class="painel-nota">Registros salvos neste navegador.</p>
+  </dialog>
+</body>
+</html>
